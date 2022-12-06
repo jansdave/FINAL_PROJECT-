@@ -1,4 +1,55 @@
-   # Display Saved Ticket Details
+############################ Create Event Class
+
+
+class Event:
+    eventname = ''
+    eventcode = ''
+    eventTotalAvaibleSeat = 10
+
+    def createEvent(self):
+        self.eventname= input("Enter Event Name: ")
+        self.eventcode = input("Enter Event Code: ")
+        self.eventTotalAvaibleSeat = input("Enter Event Total Availble Seats: ")
+        print("\n\n ------> Event Created!")
+
+
+
+############################################## Main Program Modules
+
+# Book Ticket and Check Condition
+
+def bookEventTicket():
+    ticket = Ticket()
+    ticket.bookTicket()
+    if ticket.check():
+        print("Warning : You Already Book A Seat")
+
+    elif ticket.getBookedSeatCount() >= ticket.gettotalticketcount():
+        print("Warning : All Ticket Sold Out")
+
+    else:
+        print("Sucess : Ticket Booked!")
+        saveTicketDetiails(ticket)4
+
+# Save Ticket Detials to File
+
+def saveTicketDetiails(ticket):
+    file = pathlib.Path("tickets.data")
+    if file.exists():
+        infile = open('tickets.data', 'rb')
+        oldlist = pickle.load(infile)
+        oldlist.append(ticket)
+        infile.close()
+        os.remove('tickets.data')
+    else:
+        oldlist = [ticket]
+    outfile = open('tempTicket.data', 'wb')
+    pickle.dump(oldlist, outfile)
+    outfile.close()
+    os.rename('tempTicket.data', 'tickets.data')
+ 
+
+  # Display Saved Ticket Details
 
 def getTicketDetails():
     file = pathlib.Path("tickets.data")
