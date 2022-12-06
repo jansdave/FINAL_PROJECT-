@@ -1,4 +1,70 @@
-    fileEvents = pathlib.Path("events.data")
+   # Display Saved Ticket Details
+
+def getTicketDetails():
+    file = pathlib.Path("tickets.data")
+    if file.exists ():
+        infile = open('tickets.data','rb')
+        ticketdetails = pickle.load(infile)
+        print("---------------TICKET DETAILS---------------------")
+        print("T-Ref    C-Name    C-Email    E-Code")
+        for ticket in ticketdetails :
+            print(ticket.reference,"\t",ticket.name,"\t", ticket.email, "\t",ticket.event)
+        infile.close()
+        print("--------------------------------------------------")
+        input('Press Enter To Main Menu')
+    else :
+        print("NO TICKET RECORDS FOUND")
+
+# Create Event Module
+
+def createEvent():
+    event = Event()
+    event.createEvent()
+    saveEventDetails(event)
+
+# Save Event Details to File
+
+def saveEventDetails(event):
+    file = pathlib.Path("events.data")
+    if file.exists():
+        infile = open('events.data', 'rb')
+        oldlist = pickle.load(infile)
+        oldlist.append(event)
+        infile.close()
+        os.remove('events.data')
+    else:
+        oldlist = [event]
+    outfile = open('tempevents.data', 'wb')
+    pickle.dump(oldlist, outfile)
+    outfile.close()
+    os.rename('tempevents.data', 'events.data')
+
+# Display All Event Details
+
+def getEventsDetails():
+    file = pathlib.Path("events.data")
+    if file.exists ():
+        infile = open('events.data','rb')
+        eventdetails = pickle.load(infile)
+        print("---------------EVENT DETAILS---------------------")
+        print("E-Name    E-Code    E-Total-Seats")
+        for event in eventdetails :
+            print(event.eventname,"\t", event.eventcode, "\t",event.eventTotalAvaibleSeat)
+        infile.close()
+        print("--------------------------------------------------")
+        input('Press Enter To Main Menu')
+    else :
+        print("NO EVENTS RECORDS FOUND")
+
+# Display Reports About Events
+
+def getEventsSummary():
+    filetickets = pathlib.Path("tickets.data")
+    if filetickets.exists():
+        infiletickets = open('tickets.data', 'rb')
+        ticketdetails = pickle.load(infiletickets)
+   
+   fileEvents = pathlib.Path("events.data")
     if fileEvents.exists ():
         infileEvents = open('events.data','rb')
         eventdetails = pickle.load(infileEvents)
