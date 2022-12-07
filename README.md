@@ -9,7 +9,7 @@
 
 # Event Management System
 
- A Event Management System In Python you can create an event, view the event you’ve created , you can booked ticket at the same time you can also view the ticket you’ve booked and also you can view the summary report of the events.
+A Event Management System In Python you can create an event, view the event you’ve created , you can booked ticket at the same time you can also view the ticket you’ve booked and also you can view the summary report of the events.
 
 
 Features :
